@@ -1,0 +1,43 @@
+Arguments: 
+  /usr/local/bin/node /usr/local/bin/yarn
+
+PATH: 
+  /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/Users/yangzihao/Library/Android/sdk/platform-tools:/Users/yangzihao/Library/Android/sdk/tools
+
+Yarn version: 
+  1.22.4
+
+Node version: 
+  12.18.3
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/vue: ETIMEDOUT
+      at Timeout._onTimeout (/usr/local/lib/node_modules/yarn/lib/cli.js:141408:19)
+      at listOnTimeout (internal/timers.js:549:17)
+      at processTimers (internal/timers.js:492:7)
+
+npm manifest: 
+  {
+    "name": "vue3-demo",
+    "version": "0.0.0",
+    "scripts": {
+      "dev": "vite",
+      "build": "vite build"
+    },
+    "dependencies": {
+      "vue": "^3.0.4"
+    },
+    "devDependencies": {
+      "vite": "^1.0.0-rc.13",
+      "@vue/compiler-sfc": "^3.0.4"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
