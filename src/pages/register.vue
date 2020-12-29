@@ -37,6 +37,8 @@
 </template>
 
 <script>
+import { save } from '../origin/Save&Load'
+
 export default {
   name: "register",
   data() {
@@ -70,21 +72,25 @@ export default {
         window.alert('你不要名字的吗')
         return
       }
-      this.$store.commit('createPlayer', {
-        name: this.name,
-        sexId: this.sexId,
-        strength: this.strength,
-        agility: this.agility,
-        intelligence: this.intelligence,
-        lucky: this.lucky,
-      })
-
+      this.createRoleHandle()
       this.startGame()
     },
     startGame() {
       this.$router.push({
         name: 'player'
       })
+    },
+    createRoleHandle() {
+      const role = {
+        name: this.name,
+        sexId: this.sexId,
+        strength: this.strength,
+        agility: this.agility,
+        intelligence: this.intelligence,
+        lucky: this.lucky,
+      }
+      this.$store.commit('createPlayer', role)
+      save(role)
     }
   },
   created() {
