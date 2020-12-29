@@ -12,22 +12,22 @@
     <div>
       力量：{{strength}}
       <button @click="add('strength')" :disabled="point<=0">+</button>
-      <button @click="minus('strength')" :disabled="strength<=4">-</button>
+      <button @click="minus('strength')" :disabled="strength<=basePoint">-</button>
     </div>
     <div>
       敏捷：{{agility}}
       <button @click="add('agility')" :disabled="point<=0">+</button>
-      <button @click="minus('agility')" :disabled="agility<=4">-</button>
+      <button @click="minus('agility')" :disabled="agility<=basePoint">-</button>
     </div>
     <div>
       智力：{{intelligence}}
       <button @click="add('intelligence')" :disabled="point<=0">+</button>
-      <button @click="minus('intelligence')" :disabled="intelligence<=4">-</button>
+      <button @click="minus('intelligence')" :disabled="intelligence<=basePoint">-</button>
     </div>
     <div>
-      运气：{{lucky}}
+      幸运：{{lucky}}
       <button @click="add('lucky')" :disabled="point<=0">+</button>
-      <button @click="minus('lucky')" :disabled="lucky<=4">-</button>
+      <button @click="minus('lucky')" :disabled="lucky<=basePoint">-</button>
     </div>
     <div>
       可用点数：{{point}}
@@ -51,6 +51,7 @@ export default {
       lucky: 4,
       point: 4,
       maxPoint: 4,
+      basePoint: 4,
     }
   },
   watch: {},

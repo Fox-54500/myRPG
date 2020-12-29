@@ -1,5 +1,5 @@
 <template>
-  <nav class="nav">
+  <nav class="nav" flexbox>
     <router-link to="/player">状态</router-link>
     <router-link to="/bagage">背包</router-link>
     <router-link to="/adventure">冒险</router-link>
@@ -44,7 +44,7 @@ export default {
 
 <style lang="scss" scoped>
 .nav {
-  display: flex;
+  padding: 20px;
   > .router-link-active.router-link-exact-active {
     color: #555;
   }

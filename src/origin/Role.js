@@ -17,6 +17,8 @@ export default class Role {
     intelligence: 4,
     lucky: 4,
   }
+  equip = {}
+  experience = 0
 
   constructor(role) {
     this.ability.strength = role.strength
@@ -38,7 +40,27 @@ export default class Role {
     return Level[this.level]
   }
 
-  attack(obj) {
+  get attack() {
+    let atk = 0
+    atk += this.ability.strength
+    for (const equipKey in this.equip) {
+      const equip = this.equip[equipKey]
+      atk += equip.equipAttr.attack
+    }
+    return atk
+  }
+
+  get defense() {
+    let dfs = 0
+    dfs += this.ability.strength / 2
+    for (const equipKey in this.equip) {
+      const equip = this.equip[equipKey]
+      dfs += equip.equipAttr.defense
+    }
+    return dfs
+  }
+
+  damage(obj) {
     obj.getHurt(this.ability.strength)
   }
 

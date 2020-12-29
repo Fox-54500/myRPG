@@ -2,3 +2,19 @@ a, a:link, a:visited, a:hover, a:active {
   text-decoration: none;
   color: inherit;
 }
+
+*[flexbox] {
+  display: flex;
+}
+
+*[justify="start"] {
+  justify-content: flex-start;
+}
+
+*[justify="center"] {
+  justify-content: center;
+}
+
+*[justify="end"] {
+  justify-content: flex-end;
+}
