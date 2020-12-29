@@ -1,14 +1,12 @@
 <template>
-  <div>
-    <nav>
-      <router-link to="/player">状态</router-link>
-      <router-link to="/bagage">背包</router-link>
-      <router-link to="/adventure">冒险</router-link>
-      <router-link to="/illustrate">图鉴</router-link>
-      <a href="#" @click="save()">保存</a>
-    </nav>
-    <router-view></router-view>
-  </div>
+  <nav class="nav">
+    <router-link to="/player">状态</router-link>
+    <router-link to="/bagage">背包</router-link>
+    <router-link to="/adventure">冒险</router-link>
+    <router-link to="/illustrate">图鉴</router-link>
+    <a style="margin-left: auto" href="#" @click="save()">保存</a>
+  </nav>
+  <router-view></router-view>
 </template>
 
 <script>
@@ -45,4 +43,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.nav {
+  display: flex;
+  > .router-link-active.router-link-exact-active {
+    color: #555;
+  }
+  > a {
+    color: #888;
+    margin-right: 10px;
+  }
+}
 </style>
