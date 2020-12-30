@@ -31,34 +31,77 @@
       <!-- 基本信息 -->
       <div class="player-state-basic">
         <template v-for="field in BasicInfo" :key="field">
-          <div>
-            {{field[1]}}: {{player[field[0]]}}
+          <div class="player-state-basic-row" flexbox justify="between">
+            <div class="player-state-basic-row-field">
+              {{field[1]}}:
+            </div>
+            <div class="player-state-basic-row-value">
+              {{player[field[0]]}}
+            </div>
           </div>
         </template>
+        <div class="player-state-basic-row" flexbox justify="between">
+          <div class="player-state-basic-row-field">
+            经验值:
+          </div>
+          <div class="player-state-basic-row-value">
+            {{player['experience']}}/{{player['levelUpExp']}}
+          </div>
+        </div>
       </div>
 
       <!-- 属性信息 -->
       <div class="player-state-ability">
         <template v-for="field in Ability" :key="field">
-          <div>
-            {{field[1]}}: {{player.ability[field[0]]}}
+          <div class="player-state-ability-row" flexbox justify="between">
+            <div class="player-state-ability-row-field">
+              {{field[1]}}: {{player.ability[field[0]] + addAbility[field[0]]}}
+            </div>
+            <div class="player-state-ability-row-value">
+
+              <button @click="add(field[0])" :disabled="validPoint<=0">
+                +
+              </button>
+              <button @click="minus(field[0])" :disabled="validPoint>=player.point">
+                -
+              </button>
+            </div>
           </div>
         </template>
+
+        <div flexbox>
+          <div style="margin-left: auto">
+            可用能力点: {{validPoint}}
+          </div>
+        </div>
+
+        <div flexbox>
+          <button style="margin-left: auto" @click="confirmPoint">
+            确认加点
+          </button>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { Ability,BasicInfo} from '/@/const/PlayerInfo'
+import { Ability, BasicInfo } from '/@/const/PlayerInfo'
+import { abilityOperate } from "/@/const/OperateNumber";
 import { mapState } from 'vuex'
 
 export default {
   name: "player",
   data() {
+    const addAbility = {}
+    Ability.forEach(item => addAbility[item[0]] = 0)
     return {
       Ability,
       BasicInfo,
+      // 缓存可用能力点
+      validPoint: 0,
+      // 缓存加点
+      addAbility
     }
   },
   computed: {
@@ -66,9 +109,22 @@ export default {
   },
   components: {},
   watch: {},
-  methods: {},
+  methods: {
+    add(ability) {
+      this.addAbility[ability] += abilityOperate[ability]
+      this.validPoint--
+    },
+    minus(ability) {
+      this.addAbility[ability] -= abilityOperate[ability]
+      this.validPoint++
+    },
+    confirmPoint() {
+      this.$store.commit('addPoint', this.addAbility)
+      this.player.point = this.validPoint
+    }
+  },
   created() {
-    console.log(this.player)
+    this.validPoint = this.player.point
   },
 }
 </script>
@@ -134,11 +190,27 @@ export default {
   &-state {
     &-basic {
       width: 150px;
+
+      &-row {
+        &-field {
+        }
+
+        &-value {
+        }
+      }
     }
 
     &-ability {
       width: 200px;
       margin-left: 20px;
+
+      &-row {
+        &-field {
+        }
+
+        &-value {
+        }
+      }
     }
   }
 }

@@ -4,7 +4,6 @@ export const BasicInfo = [
   ['level', '等级'],
   ['attack', '攻击力'],
   ['defense', '防御力'],
-  ['experience', '经验值'],
 ]
 
 export const Ability = [

@@ -2,13 +2,18 @@ import Sex from '../const/Sex'
 import Level from '../const/Level'
 
 export default class Role {
+  // 角色名称
   name = ''
+  // 性别id
   sexId = 1
+  // 等级
   level = 1
+  // 角色状态
   state = {
     hp: 20,
     mp: 10,
   }
+  // 能力加点
   ability = {
     maxHp: 20,
     maxMp: 10,
@@ -17,8 +22,12 @@ export default class Role {
     intelligence: 4,
     lucky: 4,
   }
+  // 装备栏
   equip = {}
+  // 经验值
   experience = 0
+  // 已有能力点
+  point = 4
 
   constructor(role) {
     this.ability.strength = role.strength

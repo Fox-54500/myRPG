@@ -18,3 +18,11 @@ a, a:link, a:visited, a:hover, a:active {
 *[justify="end"] {
   justify-content: flex-end;
 }
+
+*[justify="between"] {
+  justify-content: space-between;
+}
+
+*[justify="around"] {
+  justify-content: space-around;
+}
