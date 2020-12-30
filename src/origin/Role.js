@@ -28,6 +28,10 @@ export default class Role {
   experience = 0
   // 已有能力点
   point = 4
+  bagage = [{
+    id: 1,
+    count: 0
+  }]
 
   constructor(role) {
     this.ability.strength = role.strength
@@ -69,6 +73,10 @@ export default class Role {
     return dfs
   }
 
+  get money() {
+    return this.bagage.find(item => item.id === 1).count
+  }
+
   damage(obj) {
     obj.getHurt(this.ability.strength)
   }
@@ -87,4 +95,5 @@ export default class Role {
   use(item) {
 
   }
+
 }

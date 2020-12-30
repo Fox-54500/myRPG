@@ -1,10 +1,11 @@
 import { createStore } from 'vuex'
 import Role from '../origin/Role'
-import {Ability} from "../const/PlayerInfo";
+import { Ability } from "../const/PlayerInfo";
 
 const store = createStore({
   state() {
     return {
+      itemList: [],
       player: null,
     }
   },
@@ -16,6 +17,9 @@ const store = createStore({
       Ability.forEach(item => {
         state.player[item[0]] += ability[item[0]]
       })
+    },
+    getItemList(state, list) {
+      state.itemList = list
     }
   }
 })

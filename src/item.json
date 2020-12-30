@@ -1,10 +1,31 @@
 [
   {
     "id": 1,
+    "name": "金币",
+    "desc": "交易使用的",
+    "classId": 2,
+    "quality": 0,
+    "slot": 0,
+    "affect": {
+      "maxHp": 0,
+      "maxMp": 0,
+      "strength": 0,
+      "agility": 0,
+      "intelligence": 0,
+      "lucky": 0
+    },
+    "equipAttr": {
+      "attack": 0,
+      "defense": 0
+    }
+  },
+  {
+    "id": 2,
     "name": "普通木棒",
     "desc": "平平无奇的木棒，总感觉打完随时会断的样子",
     "classId": 1,
     "quality": 1,
+    "slot": 5,
     "affect": {
       "maxHp": 0,
       "maxMp": 0,
@@ -16,6 +37,26 @@
     "equipAttr": {
       "attack": 5,
       "defense": 0
+    }
+  },
+  {
+    "id": 3,
+    "name": "布衣",
+    "desc": "用粗糙的布料制成的衣服",
+    "classId": 1,
+    "quality": 1,
+    "slot": 2,
+    "affect": {
+      "maxHp": 0,
+      "maxMp": 0,
+      "strength": 0,
+      "agility": 0,
+      "intelligence": 0,
+      "lucky": 0
+    },
+    "equipAttr": {
+      "attack": 0,
+      "defense": 2
     }
   }
 ]
