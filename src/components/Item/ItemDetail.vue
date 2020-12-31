@@ -1,36 +1,49 @@
 <template>
-  <div class="ItemDetail">
-    <div class="ItemDetail-name">{{detail.name}}</div>
-    <div class="ItemDetail-desc">{{detail.desc}}</div>
-    <div class="ItemDetail-desc" v-if="detail.affect.maxHp">
+  <div class="ItemDetail" @click="handle">
+    <div class="ItemDetail-name" :style="{color}">
+      {{detail.name}}
+    </div>
+
+    <div class="ItemDetail-info" v-if="detail.classId===1">
+      {{classification[detail.classId]}}: {{slot[detail.slot]}}
+    </div>
+
+    <div class="ItemDetail-info" v-else>
+      {{classification[detail.classId]}}
+    </div>
+
+    <div class="ItemDetail-info" v-if="detail.affect.maxHp">
       +{{detail.affect.maxHp}}生命值
     </div>
-    <div class="ItemDetail-desc" v-if="detail.affect.maxMp">
+    <div class="ItemDetail-info" v-if="detail.affect.maxMp">
       +{{detail.affect.maxMp}}精力
     </div>
-    <div class="ItemDetail-desc" v-if="detail.affect.strength">
+    <div class="ItemDetail-info" v-if="detail.affect.strength">
       +{{detail.affect.strength}}力量
     </div>
-    <div class="ItemDetail-desc" v-if="detail.affect.agility">
+    <div class="ItemDetail-info" v-if="detail.affect.agility">
       +{{detail.affect.agility}}敏捷
     </div>
-    <div class="ItemDetail-desc" v-if="detail.affect.intelligence">
+    <div class="ItemDetail-info" v-if="detail.affect.intelligence">
       +{{detail.affect.intelligence}}智力
     </div>
-    <div class="ItemDetail-desc" v-if="detail.affect.lucky">
+    <div class="ItemDetail-info" v-if="detail.affect.lucky">
       +{{detail.affect.lucky}}幸运
     </div>
-    <div class="ItemDetail-desc" v-if="detail.equipAttr.attack">
+    <div class="ItemDetail-info" v-if="detail.equipAttr.attack">
       +{{detail.equipAttr.attack}}攻击力
     </div>
-    <div class="ItemDetail-desc" v-if="detail.equipAttr.defense">
+    <div class="ItemDetail-info" v-if="detail.equipAttr.defense">
       +{{detail.equipAttr.defense}}防御力
     </div>
+
+    <div class="ItemDetail-desc" style="color: #888">{{detail.desc}}</div>
   </div>
 </template>
 
 <script>
 import { quality, classification, slot } from '../../const/ItemConst'
+import Event from '../../origin/Event'
 
 export default {
   name: "ItemDetail",
@@ -47,10 +60,16 @@ export default {
     },
   },
   data() {
-    return {}
+    return {
+      classification,
+      slot,
+      quality,
+    }
   },
   watch: {},
-  methods: {},
+  methods: {
+    handle() {}
+  },
   created() {
   },
 }
@@ -62,20 +81,27 @@ export default {
   left: 0;
   top: 50px;
   width: 200px;
-  height: 300px;
+  min-height: 250px;
+  text-align: center;
   background: white;
   border: 1px solid #ccc;
   border-radius: 4px;
   padding: 10px;
+  z-index: 99;
 
-  &-desc, &-name {
+  &-info, &-name {
     font-size: 14px;
-    text-align: center;
   }
 
   &-name {
     font-size: 16px;
     margin-bottom: 5px;
+  }
+
+  &-desc {
+    font-size: 12px;
+    margin-top: 12px;
+    color: #888;
   }
 }
 </style>

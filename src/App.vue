@@ -3,9 +3,15 @@
 </template>
 
 <script>
+import Event from './origin/Event'
 
 export default {
   name: 'App',
-  components: {}
+  components: {},
+  mounted() {
+    document.body.addEventListener('click', function () {
+      Event.$emit('closeAll')
+    }, false)
+  }
 }
 </script>

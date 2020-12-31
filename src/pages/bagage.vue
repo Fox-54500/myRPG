@@ -1,8 +1,9 @@
 <template>
   <div class="bagage">
     <div class="bagage-header">物品栏</div>
-    <div class="bagage-content">
-      <template v-for="item in bagage" :key="item.id">
+    <div class="bagage-money">{{player.money}}</div>
+    <div class="bagage-content" flexbox>
+      <template v-for="item in playerBagage" :key="item.id">
         <item :detail="item"/>
       </template>
     </div>
@@ -11,7 +12,8 @@
 
 <script>
 import Item from '/@/components/Item/Item.vue'
-import { mapState } from 'vuex'
+import Event from '../origin/Event'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
   name: "bagage",
@@ -25,28 +27,17 @@ export default {
       'player',
       'itemList'
     ]),
+    ...mapGetters([
+      'playerBagage'
+    ])
   },
   watch: {},
   components: {
     Item
   },
   methods: {
-    fillItemList() {
-      const itemList = []
-      this.itemList.forEach(item => {
-        const find = this.player.bagage.find(it => it.id === item.id)
-        if (find) {
-          itemList.push({
-            ...item,
-            count: find.count
-          })
-        }
-      })
-      this.bagage = itemList
-    }
   },
   created() {
-    this.fillItemList()
   },
 }
 </script>

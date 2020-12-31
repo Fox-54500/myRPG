@@ -2,6 +2,8 @@ import { createStore } from 'vuex'
 import Role from '../origin/Role'
 import { Ability } from "../const/PlayerInfo";
 
+import Bagage from './modules/Bagage'
+
 const store = createStore({
   state() {
     return {
@@ -20,7 +22,10 @@ const store = createStore({
     },
     getItemList(state, list) {
       state.itemList = list
-    }
+    },
+  },
+  modules: {
+    Bagage
   }
 })
 

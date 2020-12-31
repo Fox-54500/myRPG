@@ -28,10 +28,17 @@ export default class Role {
   experience = 0
   // 已有能力点
   point = 4
-  bagage = [{
-    id: 1,
-    count: 0
-  }]
+  // 背包
+  bagage = [
+    {
+      id: 1,
+      count: 10
+    },
+    {
+      id: 5,
+      count: 1
+    },
+  ]
 
   constructor(role) {
     this.ability.strength = role.strength

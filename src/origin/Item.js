@@ -4,6 +4,7 @@ export class Item {
   name = ''
   desc = ''
   classId = 1
+  saleCount = 0
 
   affect = {
     maxHp: 0,

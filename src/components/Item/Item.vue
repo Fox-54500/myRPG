@@ -1,11 +1,14 @@
 <template>
   <div class="item">
-    <div class="item-content" :style="{color}" @click.left.prevent="" @click.right.prevent="">
+    <div class="item-content" :style="{color}" @click.left.prevent.stop="detailShowHandle" @click.right.prevent="optionsShowHandle">
       {{detail.name}}
     </div>
-    <detail
+    <detail v-if="detailShow"
       :detail="detail"
       :color="color"
+    />
+    <options v-if="optionsShow"
+      :detail="detail"
     />
   </div>
 </template>
@@ -13,6 +16,8 @@
 <script>
 import { qualityColor } from '../../const/ItemConst';
 import Detail from './ItemDetail.vue'
+import Options from './ItemOptions.vue'
+import Event from '../../origin/Event'
 
 export default {
   name: 'item',
@@ -25,19 +30,40 @@ export default {
     }
   },
   data() {
-    return {}
+    return {
+      detailShow: false,
+      optionsShow: false,
+      eventId: 0,
+    }
   },
-  components:{
-    Detail
+  components: {
+    Detail,
+    Options,
   },
   computed: {
     color() {
       return qualityColor[this.detail.quality]
     }
   },
-  methods: {},
-  created() {
+  methods: {
+    detailShowHandle() {
+      Event.$emit('closeAll')
+      this.detailShow = true
+    },
+    optionsShowHandle() {
+      Event.$emit('closeAll')
+      this.optionsShow = true
+    }
   },
+  created() {
+    this.eventId = Event.$on('closeAll', () => {
+      this.detailShow = false
+      this.optionsShow = false
+    })
+  },
+  beforeUnmount() {
+    Event.$off(this.eventId)
+  }
 }
 </script>
 

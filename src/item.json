@@ -3,6 +3,7 @@
     "id": 1,
     "name": "金币",
     "desc": "交易使用的",
+    "saleCount": 0,
     "classId": 2,
     "quality": 0,
     "slot": 0,
@@ -23,6 +24,7 @@
     "id": 2,
     "name": "普通木棒",
     "desc": "平平无奇的木棒，总感觉打完随时会断的样子",
+    "saleCount": 10,
     "classId": 1,
     "quality": 1,
     "slot": 5,
@@ -43,6 +45,7 @@
     "id": 3,
     "name": "布衣",
     "desc": "用粗糙的布料制成的衣服",
+    "saleCount": 10,
     "classId": 1,
     "quality": 1,
     "slot": 2,
@@ -57,6 +60,48 @@
     "equipAttr": {
       "attack": 0,
       "defense": 2
+    }
+  },
+  {
+    "id": 4,
+    "name": "红色药水",
+    "desc": "能恢复血量的药水",
+    "saleCount": 2,
+    "classId": 4,
+    "quality": 1,
+    "slot": 0,
+    "affect": {
+      "maxHp": 0,
+      "maxMp": 0,
+      "strength": 0,
+      "agility": 0,
+      "intelligence": 0,
+      "lucky": 0
+    },
+    "equipAttr": {
+      "attack": 0,
+      "defense": 0
+    }
+  },
+  {
+    "id": 5,
+    "name": "大力丸",
+    "desc": "一天不吃，浑身难受",
+    "saleCount": 2,
+    "classId": 4,
+    "quality": 1,
+    "slot": 0,
+    "affect": {
+      "maxHp": 2,
+      "maxMp": 0,
+      "strength": 1,
+      "agility": 0,
+      "intelligence": 0,
+      "lucky": 0
+    },
+    "equipAttr": {
+      "attack": 0,
+      "defense": 0
     }
   }
 ]
