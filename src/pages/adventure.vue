@@ -1,18 +1,40 @@
 <template>
   <div class="adventure">
-    <div class="adventure-header"></div>
+    <button class="adventure-btn" @click="startAdventure">开始冒险</button>
   </div>
 </template>
 
 <script>
+import Battle from '../origin/Battle'
+import Role from '../origin/Role'
+import { mapState } from 'vuex'
+
 export default {
   name: "adventure",
   data() {
-    return {}
+    return {
+      battle: null
+    }
   },
-  components: {},
+  computed: {
+    ...mapState(['player'])
+  },
   watch: {},
-  methods: {},
+  methods: {
+    createEnemy() {
+      return new Role({
+        strength: 5,
+        agility: 5,
+        intelligence: 5,
+        lucky: 5,
+        name: '无名小卒',
+        sexId: 1,
+      }, false)
+    },
+    startAdventure() {
+      this.battle = new Battle([this.player], [this.createEnemy()])
+    }
+  },
   created() {
   },
 }

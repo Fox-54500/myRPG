@@ -40,13 +40,17 @@ export default class Role {
     },
   ]
 
-  constructor(role) {
+  // 主角队伍
+  isAct = true
+
+  constructor(role, isAct = true) {
     this.ability.strength = role.strength
     this.ability.agility = role.agility
     this.ability.intelligence = role.intelligence
     this.ability.lucky = role.lucky
     this.name = role.name
     this.sexId = role.sexId
+    this.isAct = isAct
   }
 
   skill = []
@@ -84,7 +88,19 @@ export default class Role {
     return this.bagage.find(item => item.id === 1).count
   }
 
+  get speed() {
+    const maxAbility = Math.max(
+      this.ability.strength,
+      this.ability.agility,
+      this.ability.intelligence,
+      this.ability.lucky
+    )
+
+    return this.ability.agility + maxAbility * 0.3
+  }
+
   damage(obj) {
+    console.log(this.name + '攻击了' + obj.name)
     obj.getHurt(this.ability.strength)
   }
 
@@ -93,10 +109,16 @@ export default class Role {
   }
 
   getHurt(damage) {
+    console.log('造成了' + damage + '的伤害')
     this.state.hp -= damage
     if (this.state.hp <= 0) {
       this.die()
     }
+  }
+
+  resetState() {
+    this.state.hp = this.ability.maxHp
+    this.state.mp = this.ability.maxMp
   }
 
   use(item) {
