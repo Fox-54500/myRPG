@@ -59,10 +59,10 @@
             </div>
             <div class="player-state-ability-row-value">
 
-              <button @click="add(field[0])" :disabled="validPoint<=0">
+              <button class="player-state-ability-row-value-btn" @click="add(field[0])" :disabled="validPoint<=0">
                 +
               </button>
-              <button @click="minus(field[0])" :disabled="validPoint>=player.point">
+              <button class="player-state-ability-row-value-btn" @click="minus(field[0])" :disabled="validPoint>=player.point">
                 -
               </button>
             </div>
@@ -209,6 +209,9 @@ export default {
         }
 
         &-value {
+          &-btn {
+            width: 20px;
+          }
         }
       }
     }
