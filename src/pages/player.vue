@@ -119,8 +119,16 @@ export default {
       this.validPoint++
     },
     confirmPoint() {
-      this.$store.commit('addPoint', this.addAbility)
-      this.player.point = this.validPoint
+      this.$store.commit('addPoint', {
+        ability: this.addAbility,
+        point: this.validPoint
+      })
+      this.initAbility()
+    },
+    initAbility() {
+      this.Ability.forEach(item => {
+        this.addAbility[item[0]] = 0
+      })
     }
   },
   created() {

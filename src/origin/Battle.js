@@ -9,13 +9,17 @@ export default class Battle {
   round = 1
   // 游戏仅支持以下速度
   speedRules = [0.5, 1, 2, 5, 10]
+  isOver = true
 
   constructor(players, enemys) {
     this.players = players
     this.enemys = enemys
     this.queue = [...players, ...enemys].sort((a, b) => b.speed - a.speed)
-    this.queue.forEach(item => item.resetState())
+  }
 
+  battleStart() {
+    this.isOver = false
+    this.queue.forEach(item => item.resetState())
     this.handler(0)
   }
 
@@ -33,6 +37,8 @@ export default class Battle {
           this.round++
           this.handler(0)
         }
+      } else {
+        this.isOver = true
       }
     }, this.speed)
   }

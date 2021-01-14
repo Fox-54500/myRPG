@@ -27,7 +27,7 @@ export default class Role {
   // 经验值
   experience = 0
   // 已有能力点
-  point = 4
+  point = 0
   // 背包
   bagage = [
     {
@@ -50,6 +50,7 @@ export default class Role {
     this.ability.lucky = role.lucky
     this.name = role.name
     this.sexId = role.sexId
+    this.point = role.point ? role.point : 0
     this.isAct = isAct
   }
 
@@ -106,6 +107,7 @@ export default class Role {
 
   die() {
     this.isDead = true
+    this.state.hp = 0
   }
 
   getHurt(damage) {
@@ -119,6 +121,7 @@ export default class Role {
   resetState() {
     this.state.hp = this.ability.maxHp
     this.state.mp = this.ability.maxMp
+    this.isDead = false
   }
 
   use(item) {

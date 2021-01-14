@@ -8,6 +8,7 @@ export function save(role) {
     agility: role.agility,
     intelligence: role.intelligence,
     lucky: role.lucky,
+    point: role.point
   }))
 }
 

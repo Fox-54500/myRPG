@@ -1,6 +1,18 @@
 <template>
   <div class="adventure">
-    <button class="adventure-btn" @click="startAdventure">开始冒险</button>
+    <button class="adventure-btn" @click="startAdventure" :disabled="!battle.isOver">开始冒险</button>
+
+    <div class="adventure-main">
+      <div class="adventure-main-player">
+        <div>主角血量：{{player.state.hp}}</div>
+        <div>主角精力：{{player.state.mp}}</div>
+      </div>
+      <div class="adventure-main-enemy">
+        <div>敌人血量：{{enemy.state.hp}}</div>
+        <div>敌人精力：{{enemy.state.mp}}</div>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -13,7 +25,8 @@ export default {
   name: "adventure",
   data() {
     return {
-      battle: null
+      battle: null,
+      enemy: null,
     }
   },
   computed: {
@@ -32,17 +45,30 @@ export default {
       }, false)
     },
     startAdventure() {
-      this.battle = new Battle([this.player], [this.createEnemy()])
+      this.battle.battleStart()
     }
   },
   created() {
+    console.log(1)
+    this.enemy = this.createEnemy()
+    this.battle = new Battle([this.player], [this.enemy])
   },
 }
 </script>
 
 <style lang="scss" scoped>
 .adventure {
-  &-header {
+  &-main {
+    display: flex;
+
+    &-player {
+      margin-right: 100px;
+    }
+
+    &-enemy {
+
+    }
   }
+
 }
 </style>

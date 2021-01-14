@@ -15,10 +15,12 @@ const store = createStore({
     createPlayer(state, role) {
       state.player = new Role(role)
     },
-    addPoint(state, ability) {
+    addPoint(state, {ability, point}) {
+      console.log('---------- index.js.addPoint()  line:19()  point=', point);
       Ability.forEach(item => {
-        state.player[item[0]] += ability[item[0]]
+        state.player.ability[item[0]] += ability[item[0]]
       })
+      state.player.point = point
     },
     getItemList(state, list) {
       state.itemList = list

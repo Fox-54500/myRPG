@@ -8,7 +8,11 @@
       <a style="margin-left: auto" href="#" @click="save()">保存</a>
     </nav>
     <div class="content">
-      <router-view></router-view>
+      <router-view v-slot="{Component}">
+        <keep-alive>
+          <component :is="Component"></component>
+        </keep-alive>
+      </router-view>
     </div>
   </div>
 </template>
@@ -33,6 +37,7 @@ export default {
         agility: player.ability.agility,
         intelligence: player.ability.intelligence,
         lucky: player.ability.lucky,
+        point: player.point
       })
     }
   },
