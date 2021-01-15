@@ -131,6 +131,7 @@ export default class Role {
       this.state.mp -= 1
       if (dodgeRand <= obj.dodge) {
         return {
+          isCritical: false,
           damage: 0,
           cost: 1,
           type: DAMAGE_TYPE.miss
@@ -142,6 +143,7 @@ export default class Role {
         }
         obj.getHurt(damage)
         return {
+          isCritical: critRand <= this.critic,
           damage,
           cost: 1,
           type: DAMAGE_TYPE.hit
@@ -149,6 +151,7 @@ export default class Role {
       }
     } else {
       return {
+        isCritical: false,
         damage: 0,
         cost: 1,
         type: DAMAGE_TYPE.noMp

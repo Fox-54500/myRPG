@@ -5,6 +5,15 @@ const revert = {
   enemy: 'player'
 }
 
+function createBattleContent(damage, isCritical = false) {
+  let message = `-${damage}`
+  if (isCritical) {
+    message += '暴击'
+  }
+
+  return message
+}
+
 export default class Battle {
   timer = null
   speed = 1000
@@ -73,13 +82,13 @@ export default class Battle {
             }])
             target._battleMessage.addMessage([{
               content: `miss`,
-              type: 'hp'
+              type: 'miss'
             }])
           })
         break
       case DAMAGE_TYPE.noMp:
         curRole._battleMessage.addMessage([{
-          content: `精力值不足`,
+          content: '精力值不足',
           type: 'mp'
         }])
         break;
@@ -91,8 +100,8 @@ export default class Battle {
               type: 'mp'
             }])
             target._battleMessage.addMessage([{
-              content: `-${damageResult.damage}`,
-              type: 'hp'
+              content: createBattleContent(damageResult.damage, damageResult.isCritical),
+              type: damageResult.isCritical ? 'crit' : 'hp'
             }])
           })
         break

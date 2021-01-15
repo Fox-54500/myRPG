@@ -134,6 +134,7 @@ $attackedDistance: 10px;
           top: -50px;
           left: 50%;
           transform: translateX(-50%);
+          white-space: nowrap;
 
           > .hp {
             color: red;
@@ -141,6 +142,14 @@ $attackedDistance: 10px;
 
           > .mp {
             color: blue;
+          }
+
+          > .miss {
+            color: purple;
+          }
+
+          > .crit {
+            color: darkred;
           }
         }
       }
