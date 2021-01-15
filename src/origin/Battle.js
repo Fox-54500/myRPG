@@ -1,3 +1,10 @@
+import { DAMAGE_TYPE } from "../const/TypeMap";
+
+const revert = {
+  player: 'enemy',
+  enemy: 'player'
+}
+
 export default class Battle {
   timer = null
   speed = 1000
@@ -12,11 +19,13 @@ export default class Battle {
   player = {
     queue: [],
     isAttacking: false,
+    isAttacked: false,
   }
 
   enemy = {
     queue: [],
     isAttacking: false,
+    isAttacked: false,
   }
 
   get playerWin() {
@@ -52,12 +61,47 @@ export default class Battle {
     const curRole = this.queue[i]
     const target = this.selectTarget(curRole)
     const camp = curRole.isAct ? 'player' : 'enemy'
-    this.battleAnimation(camp)
-      .then(() => {
-        curRole.damage(target)
-      })
+
+    const damageResult = curRole.damage(target)
+    switch (damageResult.type) {
+      case DAMAGE_TYPE.miss:
+        this.battleAnimation(camp)
+          .then(() => {
+            curRole._battleMessage.addMessage([{
+              content: `-${damageResult.cost}`,
+              type: 'mp'
+            }])
+            target._battleMessage.addMessage([{
+              content: `miss`,
+              type: 'hp'
+            }])
+          })
+        break
+      case DAMAGE_TYPE.noMp:
+        curRole._battleMessage.addMessage([{
+          content: `精力值不足`,
+          type: 'mp'
+        }])
+        break;
+      case DAMAGE_TYPE.hit:
+        this.battleAnimation(camp)
+          .then(() => {
+            curRole._battleMessage.addMessage([{
+              content: `-${damageResult.cost}`,
+              type: 'mp'
+            }])
+            target._battleMessage.addMessage([{
+              content: `-${damageResult.damage}`,
+              type: 'hp'
+            }])
+          })
+        break
+      default:
+        break
+    }
 
     this.timer = setTimeout(() => {
+      this[revert[camp]].isAttacked = false
       const goOn = this.assessResult()
       if (goOn) {
         // 保证回合执行到最后一条
@@ -74,7 +118,7 @@ export default class Battle {
   }
 
   selectTarget(role) {
-    // 目前仅支持1对1
+    // 目前仅支持单体攻击
     return this[role.isAct ? 'enemy' : 'player'].queue[0]
   }
 
@@ -120,6 +164,7 @@ export default class Battle {
     return new Promise(resolve => {
       setTimeout(() => {
         this[camp].isAttacking = false
+        this[revert[camp]].isAttacked = true
         resolve()
       }, this.animationSpeed)
     })

@@ -1,6 +1,12 @@
 import Sex from '../const/Sex'
 import Level from '../const/Level'
 import Message from "./Message";
+import { DAMAGE_TYPE } from "../const/TypeMap";
+
+function damageCalc(damage, defense) {
+  const result = Math.round(damage - defense)
+  return Math.max(1, result)
+}
 
 export default class Role {
   // 角色名称
@@ -44,6 +50,7 @@ export default class Role {
   isAct = true
   // 战斗消息队列
   _battleMessage = null
+  critRate = 2
 
   skill = []
   isDead = false
@@ -91,6 +98,16 @@ export default class Role {
     return this.ability.agility + maxAbility * 0.3
   }
 
+  get dodge() {
+    const fromAibility = this.ability.lucky / (100 + this.ability.lucky)
+    return fromAibility
+  }
+
+  get critic() {
+    const fromAibility = this.ability.lucky / (100 + this.ability.lucky)
+    return fromAibility
+  }
+
   get battleMessage() {
     return this._battleMessage ? this._battleMessage.message : []
   }
@@ -107,12 +124,36 @@ export default class Role {
   }
 
   damage(obj) {
-    this.state.mp -= 1
-    this._battleMessage.addMessage([{
-      content: `-1`,
-      type: 'mp'
-    }])
-    obj.getHurt(this.ability.strength)
+    const critRand = Math.random()
+    const dodgeRand = Math.random()
+
+    if (this.state.mp > 0) {
+      this.state.mp -= 1
+      if (dodgeRand <= obj.dodge) {
+        return {
+          damage: 0,
+          cost: 1,
+          type: DAMAGE_TYPE.miss
+        }
+      } else {
+        let damage = damageCalc(this.attack, obj.defense)
+        if (critRand <= this.critic) {
+          damage *= this.critRate
+        }
+        obj.getHurt(damage)
+        return {
+          damage,
+          cost: 1,
+          type: DAMAGE_TYPE.hit
+        }
+      }
+    } else {
+      return {
+        damage: 0,
+        cost: 1,
+        type: DAMAGE_TYPE.noMp
+      }
+    }
   }
 
   die() {
@@ -121,10 +162,6 @@ export default class Role {
   }
 
   getHurt(damage) {
-    this._battleMessage.addMessage([{
-      content: `-${damage}`,
-      type: 'hp'
-    }])
     this.state.hp -= damage
     if (this.state.hp <= 0) {
       this.die()
