@@ -2,19 +2,26 @@
   <div class="adventure">
     <button class="adventure-btn" @click="startAdventure" :disabled="!battle.isOver">开始冒险</button>
 
+    <div class="adventure-header">
+      <span v-if="battle.isOver&&battle.round">回合结束</span>
+      <span v-else-if="battle.round">当前回合：{{battle.round}}</span>
+      <span v-else>请开始冒险</span>
+    </div>
+
     <div class="adventure-main">
       <div class="adventure-main-player">
         <div class="field-value">主角血量：{{player.state.hp}}</div>
         <div class="field-value">主角精力：{{player.state.mp}}</div>
         <div
           class="role player"
-          :class="{attack: battle.playerIsAttacking}"
+          :class="{attack: battle.player.isAttacking}"
           :style="{transition: `all ${battle.animationSpeed}ms ease-out 0s`}"
-        ></div>
-        <div class="status-box">
-          <template v-for="item in battle.playerStatusBox">
-            <div>{{item}}</div>
-          </template>
+        >
+          <div class="status-box">
+            <template v-for="item in player.battleMessage">
+              <div :class="[item.type]">{{item.content}}</div>
+            </template>
+          </div>
         </div>
       </div>
       <div class="adventure-main-enemy">
@@ -22,13 +29,14 @@
         <div class="field-value">敌人精力：{{enemy.state.mp}}</div>
         <div
           class="role enemy"
-          :class="{attack: battle.enemyIsAttacking}"
+          :class="{attack: battle.enemy.isAttacking}"
           :style="`transition: all ${battle.animationSpeed}ms ease-out 0s`"
-        ></div>
-        <div class="status-box">
-          <template v-for="item in battle.enemyStatusBox">
-            <div>{{item}}</div>
-          </template>
+        >
+          <div class="status-box">
+            <template v-for="item in enemy.battleMessage">
+              <div :class="[item.type]">{{item.content}}</div>
+            </template>
+          </div>
         </div>
       </div>
     </div>
@@ -90,6 +98,7 @@ export default {
       }
 
       .role {
+        position: relative;
         margin-top: 50px;
         width: 80px;
         height: 100px;
@@ -101,6 +110,21 @@ export default {
 
         &.player.attack {
           transform: translateX(100px);
+        }
+
+        > .status-box {
+          position: absolute;
+          top: -50px;
+          left: 50%;
+          transform: translateX(-50%);
+
+          > .hp {
+            color: red;
+          }
+
+          > .mp {
+            color: blue;
+          }
         }
       }
     }

@@ -1,5 +1,6 @@
 import Sex from '../const/Sex'
 import Level from '../const/Level'
+import Message from "./Message";
 
 export default class Role {
   // 角色名称
@@ -39,20 +40,10 @@ export default class Role {
       count: 1
     },
   ]
-
-  // 主角队伍
+  // 是否为主角阵营
   isAct = true
-
-  constructor(role, isAct = true) {
-    this.ability.strength = role.strength
-    this.ability.agility = role.agility
-    this.ability.intelligence = role.intelligence
-    this.ability.lucky = role.lucky
-    this.name = role.name
-    this.sexId = role.sexId
-    this.point = role.point ? role.point : 0
-    this.isAct = isAct
-  }
+  // 战斗消息队列
+  _battleMessage = null
 
   skill = []
   isDead = false
@@ -100,7 +91,27 @@ export default class Role {
     return this.ability.agility + maxAbility * 0.3
   }
 
+  get battleMessage() {
+    return this._battleMessage ? this._battleMessage.message : []
+  }
+
+  constructor(role, isAct = true) {
+    this.ability.strength = role.strength
+    this.ability.agility = role.agility
+    this.ability.intelligence = role.intelligence
+    this.ability.lucky = role.lucky
+    this.name = role.name
+    this.sexId = role.sexId
+    this.point = role.point ? role.point : 0
+    this.isAct = isAct
+  }
+
   damage(obj) {
+    this.state.mp -= 1
+    this._battleMessage.addMessage([{
+      content: `-1`,
+      type: 'mp'
+    }])
     obj.getHurt(this.ability.strength)
   }
 
@@ -110,17 +121,21 @@ export default class Role {
   }
 
   getHurt(damage) {
-    console.log('造成了' + damage + '的伤害')
+    this._battleMessage.addMessage([{
+      content: `-${damage}`,
+      type: 'hp'
+    }])
     this.state.hp -= damage
     if (this.state.hp <= 0) {
       this.die()
     }
   }
 
-  resetState() {
+  resetState(battle) {
     this.state.hp = this.ability.maxHp
     this.state.mp = this.ability.maxMp
     this.isDead = false
+    this._battleMessage = new Message(battle.animationSpeed)
   }
 
   use(item) {
