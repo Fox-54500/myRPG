@@ -10,6 +10,21 @@ export default class Battle {
   // 游戏仅支持以下速度
   speedRules = [0.5, 1, 2, 5, 10]
   isOver = true
+  playerIsAttacking = false
+  enemyIsAttacking = false
+
+  get playerWin() {
+    return this.enemys.every(enemy => enemy.isDead)
+  }
+
+  get enemyWin() {
+    return this.players.every(player => player.isDead)
+  }
+
+  get animationSpeed() {
+    // 动画有来回，实际要除二 0.9/2
+    return this.speed * 0.45
+  }
 
   constructor(players, enemys) {
     this.players = players
@@ -20,14 +35,22 @@ export default class Battle {
   battleStart() {
     this.isOver = false
     this.queue.forEach(item => item.resetState())
-    this.handler(0)
+
+    setTimeout(() => {
+      this.handler(0)
+    }, this.speed)
   }
 
   handler(i) {
+    const curRole = this.queue[i]
+    const target = this.selectTarget(curRole)
+
+    this.battleAnimation(curRole.isAct)
+      .then(() => {
+        curRole.damage(target)
+      })
+
     this.timer = setTimeout(() => {
-      const curRole = this.queue[i]
-      const target = this.selectTarget(curRole)
-      curRole.damage(target)
       const goOn = this.assessResult()
       if (goOn) {
         // 队列结束应该开始新一回合
@@ -84,11 +107,22 @@ export default class Battle {
     console.log('主角团失利')
   }
 
-  get playerWin() {
-    return this.enemys.every(enemy => enemy.isDead)
-  }
+  battleAnimation(isAct) {
+    if (isAct) {
+      this.playerIsAttacking = true
+    } else {
+      this.enemyIsAttacking = true
+    }
 
-  get enemyWin() {
-    return this.players.every(player => player.isDead)
+    return new Promise(resolve => {
+      setTimeout(() => {
+        if (isAct) {
+          this.playerIsAttacking = false
+        } else {
+          this.enemyIsAttacking = false
+        }
+        resolve()
+      }, this.animationSpeed)
+    })
   }
 }

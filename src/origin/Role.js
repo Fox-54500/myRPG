@@ -101,7 +101,6 @@ export default class Role {
   }
 
   damage(obj) {
-    console.log(this.name + '攻击了' + obj.name)
     obj.getHurt(this.ability.strength)
   }
 

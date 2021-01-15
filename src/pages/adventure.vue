@@ -4,15 +4,34 @@
 
     <div class="adventure-main">
       <div class="adventure-main-player">
-        <div>主角血量：{{player.state.hp}}</div>
-        <div>主角精力：{{player.state.mp}}</div>
+        <div class="field-value">主角血量：{{player.state.hp}}</div>
+        <div class="field-value">主角精力：{{player.state.mp}}</div>
+        <div
+          class="role player"
+          :class="{attack: battle.playerIsAttacking}"
+          :style="{transition: `all ${battle.animationSpeed}ms ease-out 0s`}"
+        ></div>
+        <div class="status-box">
+          <template v-for="item in battle.playerStatusBox">
+            <div>{{item}}</div>
+          </template>
+        </div>
       </div>
       <div class="adventure-main-enemy">
-        <div>敌人血量：{{enemy.state.hp}}</div>
-        <div>敌人精力：{{enemy.state.mp}}</div>
+        <div class="field-value">敌人血量：{{enemy.state.hp}}</div>
+        <div class="field-value">敌人精力：{{enemy.state.mp}}</div>
+        <div
+          class="role enemy"
+          :class="{attack: battle.enemyIsAttacking}"
+          :style="`transition: all ${battle.animationSpeed}ms ease-out 0s`"
+        ></div>
+        <div class="status-box">
+          <template v-for="item in battle.enemyStatusBox">
+            <div>{{item}}</div>
+          </template>
+        </div>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -49,7 +68,6 @@ export default {
     }
   },
   created() {
-    console.log(1)
     this.enemy = this.createEnemy()
     this.battle = new Battle([this.player], [this.enemy])
   },
@@ -65,8 +83,26 @@ export default {
       margin-right: 100px;
     }
 
-    &-enemy {
+    &-player, &-enemy {
+      .field-value {
+        font-size: 14px;
+        color: #787878;
+      }
 
+      .role {
+        margin-top: 50px;
+        width: 80px;
+        height: 100px;
+        background: darkgrey;
+
+        &.enemy.attack {
+          transform: translateX(-100px);
+        }
+
+        &.player.attack {
+          transform: translateX(100px);
+        }
+      }
     }
   }
 
