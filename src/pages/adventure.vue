@@ -75,6 +75,8 @@ export default {
         lucky: 5,
         name: '无名小卒',
         sexId: 1,
+        level: 1,
+        experience: 20,
       }, false)
     },
     startAdventure() {

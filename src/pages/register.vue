@@ -89,7 +89,7 @@ export default {
         agility: this.agility,
         intelligence: this.intelligence,
         lucky: this.lucky,
-        point: 0
+        point: 0,
       }
       this.$store.commit('createPlayer', role)
       save(role)

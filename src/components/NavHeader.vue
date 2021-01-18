@@ -37,7 +37,9 @@ export default {
         agility: player.ability.agility,
         intelligence: player.ability.intelligence,
         lucky: player.ability.lucky,
-        point: player.point
+        point: player.point,
+        level: player.level,
+        experience: player.experience,
       })
     }
   },

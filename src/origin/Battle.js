@@ -160,11 +160,23 @@ export default class Battle {
   }
 
   winHandle() {
-    console.log('主角团胜利')
+    this.endHandle()
   }
 
   loseHandle() {
-    console.log('主角团失利')
+    this.endHandle()
+  }
+
+  endHandle() {
+    if (this.playerWin || this.enemyWin) {
+      const lose = this.playerWin ? 'enemy' : 'player'
+      const exp = this[lose].queue.reduce((res, cur) => {
+        return res + Math.floor(cur.experience / cur.level)
+      }, 0)
+      this[revert[lose]].queue.forEach(item => {
+        item.getExperience(exp)
+      })
+    }
   }
 
   battleAnimation(camp) {

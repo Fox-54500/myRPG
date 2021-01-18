@@ -120,6 +120,8 @@ export default class Role {
     this.name = role.name
     this.sexId = role.sexId
     this.point = role.point ? role.point : 0
+    this.level = role.level ? role.level : 1
+    this.experience = role.experience ? role.experience : 0
     this.isAct = isAct
   }
 
@@ -180,6 +182,19 @@ export default class Role {
 
   use(item) {
 
+  }
+
+  getExperience(exp) {
+    this.experience += exp
+    if (this.experience >= this.levelUpExp) {
+      this.experience -= this.levelUpExp
+      this.levelUp()
+    }
+  }
+
+  levelUp() {
+    this.level++
+    this.point += 5
   }
 
 }

@@ -108,7 +108,11 @@ export default {
     ...mapState(['player']),
   },
   components: {},
-  watch: {},
+  watch: {
+    ['player.level']() {
+      this.validPoint = this.player.point
+    }
+  },
   methods: {
     add(ability) {
       this.addAbility[ability] += abilityOperate[ability]
@@ -131,7 +135,7 @@ export default {
       })
     }
   },
-  created() {
+  activated() {
     this.validPoint = this.player.point
   },
 }
