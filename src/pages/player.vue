@@ -151,7 +151,7 @@ export default {
     &-avatar {
       width: 150px;
       height: 270px;
-      /*background: aqua;*/
+      background: #F5F5F5;
     }
 
     &-equip {
@@ -163,7 +163,7 @@ export default {
       * {
         width: 60px;
         height: 60px;
-        /*background: aquamarine;*/
+        background: #F5F5F5;
       }
       &-head {
         grid-column-start: 1;
@@ -200,6 +200,8 @@ export default {
   }
 
   &-state {
+    margin-top: 20px;
+
     &-basic {
       width: 150px;
 

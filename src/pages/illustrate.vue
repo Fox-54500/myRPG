@@ -1,11 +1,9 @@
 <template>
-  <div class="bagage">
-    <div class="bagage-header"></div>
-    <div class="bagage-content">
+  <div class="illustrate">
+    <div class="illustrate-header"></div>
+    <div class="illustrate-content" flexbox>
       <template v-for="item in itemList" :key="item.id">
-        <div class="bagage-content-item">
-          {{item.name}}
-        </div>
+        <item :detail="item" :show-menu="false"/>
       </template>
     </div>
   </div>
@@ -13,15 +11,18 @@
 
 <script>
 import data from '../item.json'
+import Item from '/@/components/Item/Item.vue'
 
 export default {
-  name: "bagage",
+  name: "illustrate",
   data() {
     return {
       itemList: data
     }
   },
-  components: {},
+  components: {
+    Item
+  },
   watch: {},
   methods: {},
   created() {
@@ -31,7 +32,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.bagage {
+.illustrate {
   &-header {
   }
 }

@@ -27,6 +27,10 @@ export default {
       default() {
         return {}
       }
+    },
+    showMenu: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
@@ -51,6 +55,9 @@ export default {
       this.detailShow = true
     },
     optionsShowHandle() {
+      if (!this.showMenu) {
+        return
+      }
       Event.$emit('closeAll')
       this.optionsShow = true
     }
