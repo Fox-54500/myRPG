@@ -1,7 +1,7 @@
 <template>
   <div class="illustrate">
     <div class="illustrate-header"></div>
-    <div class="illustrate-content" flexbox>
+    <div class="illustrate-content" flexbox flexwrap>
       <template v-for="item in itemList" :key="item.id">
         <item :detail="item" :show-menu="false"/>
       </template>

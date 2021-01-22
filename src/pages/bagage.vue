@@ -2,7 +2,7 @@
   <div class="bagage">
     <div class="bagage-header">物品栏</div>
     <div class="bagage-money">金币: {{player.money}}</div>
-    <div class="bagage-content" flexbox>
+    <div class="bagage-content" flexbox flexwrap>
       <template v-for="item in playerBagage" :key="item.id">
         <item :detail="item"/>
       </template>

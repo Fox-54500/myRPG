@@ -36,3 +36,11 @@ a, a:link, a:visited, a:hover, a:active {
 *[justify="around"] {
   justify-content: space-around;
 }
+
+*[flexwrap] {
+  flex-wrap: wrap;
+}
+
+*[flexnowrap] {
+  flex-wrap: nowrap;
+}
