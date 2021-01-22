@@ -86,8 +86,8 @@
 </template>
 
 <script>
-import { Ability, BasicInfo } from '/@/const/PlayerInfo'
-import { abilityOperate } from "/@/const/OperateNumber";
+import { Ability, BasicInfo } from '@/const/PlayerInfo'
+import { abilityOperate } from "@/const/OperateNumber";
 import { mapState } from 'vuex'
 
 export default {

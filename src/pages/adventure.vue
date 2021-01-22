@@ -10,8 +10,9 @@
 
     <div class="adventure-main">
       <div class="adventure-main-player">
-        <div class="field-value">主角血量：{{player.state.hp}}</div>
-        <div class="field-value">主角精力：{{player.state.mp}}</div>
+        <div class="field-value">{{player.name}}</div>
+        <div class="field-value">血量：{{player.state.hp}}</div>
+        <div class="field-value">精力：{{player.state.mp}}</div>
         <div
           class="role player"
           :class="{
@@ -28,8 +29,9 @@
         </div>
       </div>
       <div class="adventure-main-enemy">
-        <div class="field-value">敌人血量：{{enemy.state.hp}}</div>
-        <div class="field-value">敌人精力：{{enemy.state.mp}}</div>
+        <div class="field-value">{{enemy.name}}</div>
+        <div class="field-value">血量：{{enemy.state.hp}}</div>
+        <div class="field-value">精力：{{enemy.state.mp}}</div>
         <div
           class="role enemy"
           :class="{

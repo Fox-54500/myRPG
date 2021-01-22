@@ -11,7 +11,7 @@
 
 <script>
 import data from '../item.json'
-import Item from '/@/components/Item/Item.vue'
+import Item from '@/components/Item/Item.vue'
 
 export default {
   name: "illustrate",
