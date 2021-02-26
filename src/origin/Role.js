@@ -2,6 +2,7 @@ import Sex from '../const/Sex'
 import Level from '../const/Level'
 import Message from "./Message";
 import { DAMAGE_TYPE } from "../const/TypeMap";
+import { createRoleName } from '@/utils'
 
 function damageCalc(damage, defense) {
   const result = Math.round(damage - defense)
@@ -117,7 +118,11 @@ export default class Role {
     this.ability.agility = role.agility
     this.ability.intelligence = role.intelligence
     this.ability.lucky = role.lucky
-    this.name = role.name
+    if (role.name) {
+      this.name = role.name
+    } else {
+      this.name = createRoleName()
+    }
     this.sexId = role.sexId
     this.point = role.point ? role.point : 0
     this.level = role.level ? role.level : 1

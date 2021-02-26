@@ -12,7 +12,6 @@
 
 <script>
 import Item from '@/components/Item/Item.vue'
-import Event from '../origin/Event'
 import { mapState, mapGetters } from 'vuex'
 
 export default {

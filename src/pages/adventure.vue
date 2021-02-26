@@ -75,7 +75,6 @@ export default {
         agility: 5,
         intelligence: 5,
         lucky: 5,
-        name: '无名小卒',
         sexId: 1,
         level: 1,
         experience: 20,
